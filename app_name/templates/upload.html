@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urine Strip Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+input[type="file"] {
+    margin: 10px 0;
+}
+
+#imageContainer {
+    margin: 20px 0;
+}
+
+img {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+button {
+    margin: 10px;
+}
+
+    </style>
+
+</head>
+<body>
+    <h1>Urine Strip Analyzer</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="imageInput" accept="image/*">
+        <button type="submit">Upload Image</button>
+    </form>
+    <div id="imageContainer"></div>
+    <button id="analyzeButton" disabled>Analyze</button>
+    <div id="results"></div>
+    <script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const uploadForm = document.getElementById('uploadForm');
+    const imageInput = document.getElementById('imageInput');
+    const imageContainer = document.getElementById('imageContainer');
+    const analyzeButton = document.getElementById('analyzeButton');
+    const resultsContainer = document.getElementById('results');
+
+    uploadForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(uploadForm);
+
+        // Send the image to the server for processing (you'll implement this later)
+        // Example: fetch('/process_image/', { method: 'POST', body: formData })
+        //         .then(response => response.json())
+        //         .then(data => handleResults(data));
+
+        // For now, simulate results (remove this in actual implementation)
+        const simulatedResults = {
+            'URO': [206, 193, 187],
+            'BIL': [202, 185, 164],
+            // Add more simulated results here
+        };
+        handleResults(simulatedResults);
+
+        analyzeButton.removeAttribute('disabled');
+    });
+
+    function handleResults(results) {
+        resultsContainer.innerHTML = '<h2>Analysis Results</h2>';
+        for (const key in results) {
+            resultsContainer.innerHTML += `<p>${key}: [${results[key].join(', ')}]</p>`;
+        }
+    }
+});
+
+</script>
+</body>
+</html>
